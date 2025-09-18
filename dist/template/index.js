@@ -1,0 +1,1 @@
+(function(n,o,t){"use strict";let e;function d(){const s=t.findByProps("sendMessage","editMessage");e=o.before("sendMessage",s,function(c){c[1].content="worked"})}function a(){e?.()}return n.onLoad=d,n.onUnload=a,n})({},vendetta.patcher,vendetta.metro);

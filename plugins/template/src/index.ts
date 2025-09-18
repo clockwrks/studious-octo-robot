@@ -1,12 +1,15 @@
-import { logger } from "@vendetta";
-import Settings from "./Settings";
+import { before } from "@vendetta/patcher";
+import { findByProps } from "@vendetta/metro";
 
-export default {
-    onLoad: () => {
-        logger.log("Hello world!");
-    },
-    onUnload: () => {
-        logger.log("Goodbye, world.");
-    },
-    settings: Settings,
+let unpatch;
+
+export function onLoad() {
+  const sendMessageMod = findByProps("sendMessage", "editMessage");
+  unpatch = before("sendMessage", sendMessageMod, (args) => {
+    args[1].content = "worked";
+  });
+}
+
+export function onUnload() {
+  unpatch?.();
 }
